@@ -1,20 +1,24 @@
-require('dotenv').config();
+require('dotenv').config()
+const mongodb = require('./config/mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({ extended: true });
-const cors = require('cors');
+const path = require('path');
 const app = express();
-const configDB = require('./config/mongoose');
 
-app.use(cors());
-app.use(urlencodedParser);
+const PORT = process.env.PORT || 3005;
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
+app.set('port', PORT);
+app.set('env', NODE_ENV);
+
 app.use(bodyParser.json());
+app.use('/api', require(path.join(__dirname, 'routes')));
 
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.json({ error: err });
-});
 
-app.listen(process.env.PORT || 3000, function () {
-    console.log('Listening on port 3000!');
+app.listen(PORT, () => {
+  console.log(
+    `Express Server started on Port ${app.get(
+      'port'
+    )} | Environment : ${app.get('env')}`
+  );
 });
