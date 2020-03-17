@@ -1,12 +1,12 @@
 const UserModel = require('../models/user');
 
 class AuthController {
-    signup(req, res, next) {
+    signup(req, res) {
 
     };
 
     login(req, res, next) {
-
+        res.json({ status: 'ok' })
     };
 }
 

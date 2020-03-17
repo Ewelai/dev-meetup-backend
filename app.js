@@ -4,6 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
+const passport = require('passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 const PORT = process.env.PORT || 3005;
 const NODE_ENV = process.env.NODE_ENV || 'development';
